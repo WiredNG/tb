@@ -1,5 +1,6 @@
 package CrossBarTB;
 
+import Arbiter::*;
 import XArbiter::*;
 import FIFO::*;
 import Vector::*;
@@ -11,11 +12,6 @@ import LCGR::*;
 typedef 5 NUM_MASTER;
 typedef 4 NUM_SLAVE;
 
-module mkMyArb(XArbiter#(NUM_MASTER, Bit#(8)));
-    XArbiter#(NUM_MASTER, Bit#(8)) arb <- mkXArbiter(False);
-    return arb;
-endmodule
-
 function Bit#(NUM_SLAVE) myRouter(Bit#(3) mst_idx, Bit#(8) data);
     Bit#(4) sel = 0;
     sel[data[1:0]] = 1;
@@ -26,7 +22,7 @@ typedef Tuple2#(Vector#(NUM_MASTER, Put#(Bit#(8))), Vector#(NUM_SLAVE, Get#(Bit#
 
 (* synthesize *)
 module mkSynCrossBar(XBAR_INTF);
-    XBAR_INTF intf <- mkCrossbarIntf(myRouter, mkMyArb);
+    XBAR_INTF intf <- mkCrossbarIntf(myRouter, mkXArbiter(mkArbiter(False)));
     return intf;
 endmodule
 

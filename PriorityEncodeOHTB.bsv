@@ -12,7 +12,7 @@ module mkTB();
     endrule
 
     rule test;
-        $display("%x: %x %x", i, priorityEncodeOHL(pack(i)), priorityEncodeOHR(pack(i)));
+        $display("%x: %x %x %x %x", i, priorityEncodeOHL(pack(i)), priorityEncodeOHR(pack(i)), encodeOH(priorityEncodeOHL(pack(i))), encodeOH(priorityEncodeOHR(pack(i))));
     endrule
 
 endmodule

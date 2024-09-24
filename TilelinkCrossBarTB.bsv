@@ -1,4 +1,4 @@
-package TilelinkBurstTrackerTB;
+package TilelinkCrossBarTB;
 
 `include "TilelinkHeader.bsv"
 
@@ -17,7 +17,7 @@ module mkTB();
         $display("Handshaked");
     endrule
 
-    rule display_status(bt.valid);
+    rule display_status;
         $display(bt.valid, bt.burst, bt.first, bt.last);
     endrule
 
